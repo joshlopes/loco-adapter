@@ -162,11 +162,10 @@ class Loco implements Storage, TransferableStorage
     public function export(MessageCatalogueInterface $catalogue)
     {
         $locale = $catalogue->getLocale();
-        foreach ($this->projectsByDomain as $domain => $projectKey) {
-            $project = $this->getProject($domain);
+        foreach ($this->projectsByDomain as $domain => $project) {
             try {
                 $data = $this->client->export()->locale(
-                    $projectKey,
+                    $project->getApiKey(),
                     $locale,
                     'xliff',
                     ['format' => 'symfony', 'status' => 'translated', 'index' => $project->getIndexParameter()]
@@ -184,11 +183,10 @@ class Loco implements Storage, TransferableStorage
     public function import(MessageCatalogueInterface $catalogue)
     {
         $locale = $catalogue->getLocale();
-        foreach ($this->projectsByDomain as $domain => $projectKey) {
-            $project = $this->getProject($domain);
+        foreach ($this->projectsByDomain as $domain => $project) {
             $data = XliffConverter::catalogueToContent($catalogue, $domain);
             $this->client->import()->import(
-                $projectKey,
+                $project->getApiKey(),
                 'xliff',
                 $data,
                 ['locale' => $locale, 'async' => 1, 'index' => $project->getIndexParameter()]
