@@ -35,7 +35,11 @@ class TranslationAdapterLocoExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $domainToProjectMap = [];
+        $globalIndexParameter = $config['index_parameter'];
         foreach ($config['projects'] as $domain => $data) {
+            if (empty($data['index_parameter'])) {
+                $data['index_parameter'] = $globalIndexParameter;
+            }
             if (empty($data['domains'])) {
                 $domainToProjectMap[$domain] = new LocoProject($domain, $data);
             } else {

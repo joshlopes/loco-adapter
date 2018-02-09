@@ -5,7 +5,7 @@ namespace Translation\PlatformAdapter\Loco\Model;
 /**
  * Represents a project from loco
  */
-class LocoProject
+final class LocoProject
 {
     /**
      * @var string
@@ -33,16 +33,25 @@ class LocoProject
         $this->indexParameter = $config['index_parameter'];
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return string|null
+     */
     public function getApiKey()
     {
         return $this->apiKey;
     }
 
+    /**
+     * @return string|null
+     */
     public function getIndexParameter()
     {
         return $this->indexParameter;
