@@ -31,6 +31,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('httplug_client')->defaultNull()->end()
             ->scalarNode('httplug_message_factory')->defaultNull()->end()
             ->scalarNode('httplug_uri_factory')->defaultNull()->end()
+            ->scalarNode('index_parameter')->defaultNull()->end()
             ->append($this->getProjectNode())
         ->end();
 
@@ -49,6 +50,7 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
             ->children()
                 ->scalarNode('api_key')->isRequired()->end()
+                ->scalarNode('index_parameter')->defaultNull()->end()
                 ->arrayNode('domains')
                     ->requiresAtLeastOneElement()
                     ->prototype('scalar')->end()

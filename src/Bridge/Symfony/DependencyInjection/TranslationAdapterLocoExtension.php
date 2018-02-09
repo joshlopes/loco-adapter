@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Translation\PlatformAdapter\Loco\Loco;
+use Translation\PlatformAdapter\Loco\Model\LocoProject;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -36,10 +37,10 @@ class TranslationAdapterLocoExtension extends Extension
         $domainToProjectMap = [];
         foreach ($config['projects'] as $domain => $data) {
             if (empty($data['domains'])) {
-                $domainToProjectMap[$domain] = $data['api_key'];
+                $domainToProjectMap[$domain] = new LocoProject($domain, $data);
             } else {
                 foreach ($data['domains'] as $d) {
-                    $domainToProjectMap[$d] = $data['api_key'];
+                    $domainToProjectMap[$d] = new LocoProject($domain, $data);
                 }
             }
         }
